@@ -10,7 +10,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: "https://jacobjs7.github.io",
-  base: "/photography/",
+  base: "/photography",
   integrations: [react(), sitemap()],
 
   vite: {

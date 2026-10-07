@@ -1,0 +1,16 @@
+---
+interface Props {
+  photographerName: string;
+}
+
+const { photographerName } = Astro.props;
+---
+
+<footer class="border-t border-black/10 py-6">
+  <div class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 text-sm sm:flex-row sm:items-center sm:justify-between">
+    <p>© {new Date().getFullYear()} {photographerName}</p>
+    <nav aria-label="Media społecznościowe">
+      <slot name="social-links" />
+    </nav>
+  </div>
+</footer>

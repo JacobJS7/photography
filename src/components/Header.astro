@@ -1,0 +1,63 @@
+---
+import { kategorie } from "../data/kategorie";
+
+interface Props {
+  photographerName: string;
+}
+
+const { photographerName } = Astro.props;
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+const widoczneKategorie = kategorie.filter((kategoria) => kategoria.widoczna);
+---
+
+<header class="border-b border-black/10 py-5">
+  <div class="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 px-6">
+    <a class="font-serif text-xl leading-none focus-visible:outline-2 focus-visible:outline-offset-4" href={base}>
+      {photographerName}
+    </a>
+
+    <nav class="hidden items-center gap-6 md:flex" aria-label="Nawigacja główna">
+      {widoczneKategorie.map((kategoria) => (
+        <a
+          class="focus-visible:outline-2 focus-visible:outline-offset-4"
+          href={`${base}${kategoria.slug}/`}
+        >
+          {kategoria.nazwa}
+        </a>
+      ))}
+      <a class="focus-visible:outline-2 focus-visible:outline-offset-4" href={`${base}#o-mnie`}>O mnie</a>
+      <a class="focus-visible:outline-2 focus-visible:outline-offset-4" href={`${base}#kontakt`}>Kontakt</a>
+    </nav>
+
+    <details class="group relative md:hidden">
+      <summary
+        class="flex size-11 cursor-pointer list-none items-center justify-center rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 [&::-webkit-details-marker]:hidden"
+        aria-label="Menu"
+      >
+        <span class="flex w-6 flex-col gap-1.5" aria-hidden="true">
+          <span class="h-px w-full bg-current"></span>
+          <span class="h-px w-full bg-current"></span>
+          <span class="h-px w-full bg-current"></span>
+        </span>
+      </summary>
+
+      <nav
+        class="absolute right-0 top-full z-10 hidden min-w-56 flex-col gap-4 bg-white px-6 py-5 text-right shadow-sm group-open:flex"
+        aria-label="Nawigacja mobilna"
+      >
+        {widoczneKategorie.map((kategoria) => (
+          <a
+            class="focus-visible:outline-2 focus-visible:outline-offset-4"
+            href={`${base}${kategoria.slug}/`}
+          >
+            {kategoria.nazwa}
+          </a>
+        ))}
+        <a class="focus-visible:outline-2 focus-visible:outline-offset-4" href={`${base}#o-mnie`}>O mnie</a>
+        <a class="focus-visible:outline-2 focus-visible:outline-offset-4" href={`${base}#kontakt`}>Kontakt</a>
+      </nav>
+    </details>
+  </div>
+</header>
